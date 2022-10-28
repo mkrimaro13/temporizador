@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class interfaz extends JFrame implements ActionListener {
-    int ms=0,ss=0,mm=0,hh=0;
+    int ss=0,mm=0,hh=0;
     boolean est = true;
     JPanel panel= new JPanel();
     private JTextField textField;
@@ -25,8 +25,6 @@ public class interfaz extends JFrame implements ActionListener {
         //Inicio del texto del cronometro
         hhmmss=new JLabel("00:00:00:");
         add(hhmmss);
-        msl=new JLabel("0000");
-        add(msl);
 
         //Cuadro de texto para ingresar el número o solicitud
         textField=new JTextField("Número Caso", 10);
@@ -65,24 +63,16 @@ public class interfaz extends JFrame implements ActionListener {
                           if(est==true){
                               try{
                                   sleep(1);
-                                  if(ms>=1000){
-                                      ms=0;
-                                      ss+=1;
-                                  }
                                   if(ss>=60){
-                                     ms=0;
                                      ss=0;
                                      mm++;
-                                  }
-                                  if(mm>=0){
-                                      ms=0;
+                                  }else if(mm>=0){
                                       ss=0;
                                       mm=0;
                                       hh++;
                                   }
-                                  hhmmss.setText(hh+":"+mm+":"+ss+":");
-                                  msl.setText(""+ms);
-                                  ms++;
+                                  hhmmss.setText(hh+" : "+mm+" : "+ss+" : ");
+                                  ss++;
                               }catch (Exception e){
 
                               }
@@ -99,7 +89,6 @@ public class interfaz extends JFrame implements ActionListener {
 
             }if( e.getSource() == stop){// Para y borra el contenido
                 est=false;
-                ms=0;
                 ss=0;
                 mm=0;
                 hh=0;
