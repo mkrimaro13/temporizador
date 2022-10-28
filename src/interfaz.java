@@ -23,7 +23,7 @@ public class interfaz extends JFrame implements ActionListener {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         //Inicio del texto del cronometro
-        hhmmss=new JLabel("00:00:00:");
+        hhmmss=new JLabel("0:0:0");
         add(hhmmss);
 
         //Cuadro de texto para ingresar el número o solicitud
@@ -59,27 +59,24 @@ public class interfaz extends JFrame implements ActionListener {
                 System.out.printf(caso);
                 Thread h = new Thread(){
                   public void run(){
-                      for(;;){
-                          if(est==true){
-                              try{
-                                  sleep(1);
-                                  if(ss>=60){
-                                     ss=0;
-                                     mm++;
-                                  }else if(mm>=0){
-                                      ss=0;
-                                      mm=0;
-                                      hh++;
-                                  }
-                                  hhmmss.setText(hh+" : "+mm+" : "+ss+" : ");
-                                  ss++;
-                              }catch (Exception e){
-
+                      do{
+                          try{
+                              sleep(1000);
+                              ss++;
+                              if(ss>=60) {
+                                  mm++;
+                                  ss = 0;
                               }
-                          }else{
-                              break;
+                              if(mm>=60){
+                                  mm=0;
+                                  ss=0;
+                                  hh++;
+                              }
+                          } catch (InterruptedException ex) {
+                              throw new RuntimeException(ex);
                           }
-                      }
+                          hhmmss.setText(hh+" : "+mm+" : "+ss);
+                      }while(est);
                   }
                 };
                 h.start();
@@ -92,8 +89,7 @@ public class interfaz extends JFrame implements ActionListener {
                 ss=0;
                 mm=0;
                 hh=0;
-                hhmmss.setText("00:00:00");
-                msl.setText("0000");
+                hhmmss.setText("0:0:0");
 
             }if(e.getSource() == more){
                 new interfaz();
