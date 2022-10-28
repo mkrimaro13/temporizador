@@ -6,15 +6,14 @@ import java.awt.event.ActionListener;
 public class interfaz extends JFrame implements ActionListener {
     int ss=0,mm=0,hh=0;
     boolean est = true;
-    JPanel panel= new JPanel();
     private JTextField textField;
     private JButton start, pause, stop, more;
     private JLabel hhmmss, msl;
     private ImageIcon icn=new ImageIcon("src/images/logo.jpeg");
     public interfaz() {
         //Propiedades del Layout
-        setLayout(new FlowLayout(1,1,1));
-        setBounds(0,0,550,70);
+        setLayout(new FlowLayout(FlowLayout.LEADING));
+        setBounds(0,0,500,80);
         setTitle("Cronometro");
         setResizable(false);
         setUndecorated(false);
@@ -23,15 +22,17 @@ public class interfaz extends JFrame implements ActionListener {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         //Inicio del texto del cronometro
-        hhmmss=new JLabel("0:0:0");
+        hhmmss=new JLabel("0 : 0 : 0");
         add(hhmmss);
 
         //Cuadro de texto para ingresar el número o solicitud
         textField=new JTextField("Número Caso", 10);
+        textField.isOpaque();
         add(textField);
 
         //Creación de botones
         start=new JButton("Iniciar");
+        start.setBounds(168,5,69,26);
         add(start);
         start.addActionListener(this);
 
@@ -55,8 +56,6 @@ public class interfaz extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
             if (e.getSource() == start) {
                 est=true;
-                String caso=textField.getText();
-                System.out.printf(caso);
                 Thread h = new Thread(){
                   public void run(){
                       do{
@@ -89,7 +88,7 @@ public class interfaz extends JFrame implements ActionListener {
                 ss=0;
                 mm=0;
                 hh=0;
-                hhmmss.setText("0:0:0");
+                hhmmss.setText("0 : 0 : 0");
 
             }if(e.getSource() == more){
                 new interfaz();
@@ -98,7 +97,6 @@ public class interfaz extends JFrame implements ActionListener {
     }
     public static void main(String[] args) {
         new interfaz();
-
     }
 
 }
