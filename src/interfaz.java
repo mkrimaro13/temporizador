@@ -92,7 +92,7 @@ public class interfaz extends JFrame implements ActionListener {
 
             }if(e.getSource() == more){
                 new interfaz();
-                setBounds(getX()+50,getY()+50,getWidth(),getHeight());
+                setBounds(getX(),getY(),getWidth(),getHeight());
             }
     }
     public static void main(String[] args) {
